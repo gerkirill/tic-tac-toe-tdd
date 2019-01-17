@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="hint"></div>
+  <div class="board"></div>
+
+  <script>
+    var gameState = {
+      board:  [
+        '-', '-', '-', 
+        '-', '-', '-', 
+        '-', '-', '-', 
+      ],
+      current: 'x'
+    }
+  </script>
+  <script src="render-board.js"></script>
+  <script src="render-hint.js"></script>
+  <script src="move.js"></script>
+  <script src="check.js"></script>
+  <script src="restart.js"></script>
+  <script>
+    var boardElt = document.querySelector('.board');
+    var hintElt = document.querySelector('.hint');
+
+    boardElt.innerHTML = renderBoard(gameState.board);
+    hintElt.innerHTML = renderHint(
+      gameState.current, check(gameState.board)
+    );
+
+    boardElt.addEventListener('click', event => {
+      if (check(gameState.board) !== '') {
+        gameState = restart();
+      } else {
+        var cellIdx = getEltPosition(event.target);
+        gameState = move(gameState, cellIdx);
+      }
+
+      boardElt.innerHTML = renderBoard(gameState.board);
+      hintElt.innerHTML = renderHint(
+        gameState.current, check(gameState.board)
+      );
+    });
+
+    function getEltPosition(elt) {
+      return [].indexOf.call(elt.parentElement.children, elt);
+    }
+  </script>
+</body>
+</html>
