@@ -1,10 +1,6 @@
-const fs = require('fs');
-const path = require('path');
 const assert = require('assert');
+const renderHint = require('../js/render-hint');
 
-const SUT = '../render-hint.js';
-require(SUT);
-eval(fs.readFileSync(path.join(__dirname, SUT), { encoding: 'utf8' }));
 
 describe('#renderHint()', function() {
 

@@ -5,3 +5,5 @@ function move(gameState, cellIdx) {
   }
   return gameState;
 }
+
+typeof module !== 'undefined' && (module.exports = move);

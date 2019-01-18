@@ -13,25 +13,26 @@
 
   <script>
     var gameState = {
+      current: 'x', // current -> player (nextPlayer/nextMove/movesNext?)
       board:  [
         '-', '-', '-', 
         '-', '-', '-', 
         '-', '-', '-', 
-      ],
-      current: 'x'
+      ]
     }
   </script>
-  <script src="render-board.js"></script>
-  <script src="render-hint.js"></script>
-  <script src="move.js"></script>
-  <script src="check.js"></script>
-  <script src="restart.js"></script>
+  <script src="js/render-hint.js"></script>
+  <script src="js/render-board.js"></script>
+  <script src="js/move.js"></script>
+  <script src="js/check.js"></script>
+  <script src="js/restart.js"></script>
   <script>
     var boardElt = document.querySelector('.board');
     var hintElt = document.querySelector('.hint');
 
     boardElt.innerHTML = renderBoard(gameState.board);
     hintElt.innerHTML = renderHint(
+      // check -> getPhase() - progress, x_win, o_win, draw
       gameState.current, check(gameState.board)
     );
 
@@ -43,7 +44,9 @@
         gameState = move(gameState, cellIdx);
       }
 
+      // renderBoard - nice to start with
       boardElt.innerHTML = renderBoard(gameState.board);
+      // easy to start providing ready to use phases
       hintElt.innerHTML = renderHint(
         gameState.current, check(gameState.board)
       );

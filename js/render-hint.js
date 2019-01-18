@@ -11,3 +11,5 @@ function renderHint(current, state) {
   }
 
 }
+
+typeof module !== 'undefined' && (module.exports = renderHint);

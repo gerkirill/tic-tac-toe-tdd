@@ -1,10 +1,5 @@
-const fs = require('fs');
-const path = require('path');
 const assert = require('assert');
-
-const SUT = '../move.js';
-require(SUT);
-eval(fs.readFileSync(path.join(__dirname, SUT), { encoding: 'utf8' }));
+const move = require('../js/move.js');
 
 describe('#move()', function() {
   const board = [
@@ -15,8 +10,9 @@ describe('#move()', function() {
 
   it('should make a valid x move', function() {
     assert.deepEqual(move({
-      board: board.slice(),
-      current: 'x'
+      current: 'x',
+      board: board.slice()
+      
     }, 0), {
       current: 'o',
       board: [
@@ -29,8 +25,8 @@ describe('#move()', function() {
 
   it('should make a valid o move', function() {
     assert.deepEqual(move({
-      board: board.slice(),
-      current: 'o'
+      current: 'o',
+      board: board.slice()
     }, 1), {
       current: 'x',
       board: [

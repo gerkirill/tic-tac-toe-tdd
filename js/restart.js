@@ -8,3 +8,5 @@ function restart() {
     current: 'x'
   }
 }
+
+typeof module !== 'undefined' && (module.exports = restart);

@@ -1,10 +1,5 @@
-const fs = require('fs');
-const path = require('path');
 const assert = require('assert');
-
-const SUT = '../render-board.js';
-require(SUT);
-eval(fs.readFileSync(path.join(__dirname, SUT), { encoding: 'utf8' }));
+const renderBoard = require('../js/render-board');
 
 describe('#renderBoard()', function() {
 
