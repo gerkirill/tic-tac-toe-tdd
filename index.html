@@ -24,33 +24,32 @@
   <script src="js/render-hint.js"></script>
   <script src="js/render-board.js"></script>
   <script src="js/move.js"></script>
-  <script src="js/check.js"></script>
+  <script src="js/get-phase.js"></script>
   <script src="js/restart.js"></script>
   <script>
     var boardElt = document.querySelector('.board');
     var hintElt = document.querySelector('.hint');
 
-    boardElt.innerHTML = renderBoard(gameState.board);
-    hintElt.innerHTML = renderHint(
-      // check -> getPhase() - progress, x_win, o_win, draw
-      gameState.current, check(gameState.board)
-    );
+    renderGame(gameState);
 
     boardElt.addEventListener('click', event => {
-      if (check(gameState.board) !== '') {
+      if (getPhase(gameState.board) !== 'progress') {
         gameState = restart();
       } else {
         var cellIdx = getEltPosition(event.target);
         gameState = move(gameState, cellIdx);
       }
+      renderGame(gameState);
+    });
 
+    function renderGame(gameState) {
       // renderBoard - nice to start with
       boardElt.innerHTML = renderBoard(gameState.board);
       // easy to start providing ready to use phases
       hintElt.innerHTML = renderHint(
-        gameState.current, check(gameState.board)
+        gameState.current, getPhase(gameState.board)
       );
-    });
+    }
 
     function getEltPosition(elt) {
       return [].indexOf.call(elt.parentElement.children, elt);

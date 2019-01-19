@@ -6,7 +6,7 @@ function renderHint(current, state) {
       return 'o wins';
     case 'draw':
       return 'It is a draw';
-    default:
+    default: // 'progress'
       return 'Next move: ' + current;
   }
 
